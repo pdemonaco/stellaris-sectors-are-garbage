@@ -1,0 +1,208 @@
+@stage_1_research_bonus	= 40
+@stage_2_research_bonus	= 80
+@stage_3_research_bonus	= 120
+@stage_4_research_bonus	= 130
+@entity_x				= 0
+@entity_y 				= -20
+
+
+think_tank_0 = {
+	entity = "construction_platform_entity"
+	construction_entity = "construction_platform_entity"
+	portrait = "GFX_megastructure_construction_background"
+	place_entity_on_planet_plane = no
+
+	place_entity_on_planet_plane = no
+	entity_offset = { x = @entity_x y = @entity_y }
+
+	build_time = 1800
+	build_cost = {
+		minerals = 5000
+		influence = 300
+	}
+    
+    # Adding concurrent build support?
+    construction_blocks_others = no
+
+	maintenance = {
+		energy = 5
+	}
+	
+	potential = {
+		has_ascension_perk = ap_galactic_wonders
+	}
+	
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_inside_border"
+			is_inside_border = from
+		}
+	}
+	
+	placement_rules = {
+		planet_possible = {
+			custom_tooltip = {
+				fail_text = "requires_no_existing_megastructure"
+				NOT = { solar_system = { has_any_megastructure = yes } }
+			}
+			custom_tooltip = {
+				fail_text = "requires_survey_not_habitable"
+				is_surveyed = {			# prevent leaking habitability information
+					who = prev.from
+					status = yes
+				}
+				habitable_planet = no	# prevent the spaceport colliding with the think tank
+				habitable_structure = no
+			}
+
+ 			# balance for think tanks
+			custom_tooltip = {
+				fail_text = "requires_not_minor_planetary_body"
+				NOR = {
+					is_asteroid = yes
+					is_moon = yes
+				}
+			}
+			custom_tooltip = {
+				fail_text = "requires_not_star"
+				is_star = no
+			}
+		} # use these for all non-star megastructures
+	}
+	
+	ai_weight = {
+		modifier = {
+			weight = 0
+			NOT = {
+				has_ethic = ethic_materialist
+			}
+		}
+	}
+	
+	on_build_start = {}
+	on_build_cancel = {}
+	on_build_complete = {
+		set_star_flag = think_tank_built
+	}
+}
+
+think_tank_1 = {
+	entity = "thinktank_phase_01_entity"
+	construction_entity = "thinktank_phase_01_entity"
+	portrait = "GFX_megastructure_construction_background"
+	
+	place_entity_on_planet_plane = no
+	entity_offset = { x = @entity_x y = @entity_y }
+	
+	upgrade_from = {
+		think_tank_0
+	}
+
+	build_time = 2400
+	build_cost = {
+		minerals = 15000
+	}
+    
+    # Adding concurrent build support?
+    construction_blocks_others = no
+
+
+	monthly_production = {
+		society_research = @stage_1_research_bonus
+		engineering_research = @stage_1_research_bonus
+		physics_research = @stage_1_research_bonus
+	}
+
+	maintenance = {
+		energy = 8
+	}
+}
+
+think_tank_2 = {
+	entity = "thinktank_phase_02_entity"
+	construction_entity = "thinktank_phase_02_entity"
+	portrait = "GFX_megastructure_construction_background"
+
+	place_entity_on_planet_plane = no
+	entity_offset = { x = @entity_x y = @entity_y }
+	
+	upgrade_from = {
+		think_tank_1
+	}
+
+	build_time = 2400
+	build_cost = {
+		minerals = 15000
+	}
+    
+    # Adding concurrent build support?
+    construction_blocks_others = no
+	
+	monthly_production = {
+		society_research = @stage_2_research_bonus
+		engineering_research = @stage_2_research_bonus
+		physics_research = @stage_2_research_bonus
+	}
+
+	maintenance = {
+		energy = 12
+	}
+}
+
+think_tank_3 = {
+	entity = "thinktank_phase_03_entity"
+	construction_entity = "thinktank_phase_03_entity"
+	portrait = "GFX_megastructure_think_tank_background"
+
+	place_entity_on_planet_plane = no
+	entity_offset = { x = @entity_x y = @entity_y }
+	
+	upgrade_from = {
+		think_tank_2
+	}
+
+	build_time = 2400
+	build_cost = {
+		minerals = 15000
+	}
+	
+	monthly_production = {
+		society_research = @stage_3_research_bonus
+		engineering_research = @stage_3_research_bonus
+		physics_research = @stage_3_research_bonus
+	}
+
+	maintenance = {
+		energy = 15
+	}
+}
+
+think_tank_4 = {
+	entity = "thinktank_phase_03_entity"
+	construction_entity = "thinktank_phase_03_entity"
+	portrait = "GFX_megastructure_think_tank_background"
+
+	place_entity_on_planet_plane = no
+	entity_offset = { x = @entity_x y = @entity_y }
+
+	potential = { always = no } # Trigger only from script
+	
+	upgrade_from = {
+		think_tank_3
+	}
+    
+	build_time = 20
+	#build_cost = {
+	#	minerals = @mineral_cost
+	#}
+	
+	monthly_production = {
+		society_research = @stage_4_research_bonus
+		engineering_research = @stage_4_research_bonus
+		physics_research = @stage_4_research_bonus
+	}
+
+	maintenance = {
+		energy = @energy_maintenance
+	}
+}
