@@ -173,6 +173,10 @@ ring_world_3_intermediate = {
 	build_cost = {
 		minerals = 20000
 	}
+    
+    # Adding concurrent build support?
+    construction_blocks_others = no
+
 	on_build_complete = {
 		spawn_planet = {
 			class = "pc_ringworld_tech"
