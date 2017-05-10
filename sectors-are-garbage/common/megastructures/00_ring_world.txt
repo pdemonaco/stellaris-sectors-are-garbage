@@ -54,6 +54,12 @@ ring_world_1 = {
 			fail_text = "requires_no_black_hole"
 			NOT = { is_star_class = sc_black_hole }
 		}
+
+		custom_tooltip = {
+			fail_text = "requires_no_existing_megastructure"
+			#NOT = { solar_system = { has_any_megastructure_in_empire = yes } }
+			NOT = { has_any_megastructure = yes }
+		}
 	}
 	
 	placement_rules = {
@@ -63,22 +69,21 @@ ring_world_1 = {
 				is_star = yes
 			}
 			custom_tooltip = {
-				fail_text = "requires_no_existing_megastructure"
-				NOT = { solar_system = { has_any_megastructure = yes } }
+				fail_text = "requires_no_anomaly"
+				NOT = { has_anomaly = yes }
 			}
-			#custom_tooltip = {
-				#fail_text = "requires_planets_for_material"
-				hidden:solar_system = { any_planet = { NOT = { is_star = yes } } }
-			#}
+			custom_tooltip = {
+			fail_text = "requires_planets_for_material"
+			hidden:solar_system = { any_planet = { NOT = { is_star = yes } } }
+			}
 		}
 	}
 	
 	ai_weight = {
+		factor = 10		
 		modifier = {
-			weight = 0
-			NOT = {
-				has_ethic = ethic_militarist
-			}
+			factor = 0.5
+			has_any_megastructure_in_empire = yes
 		}
 	}
 	
@@ -102,6 +107,13 @@ ring_world_2_intermediate = {
 	build_cost = {
 		minerals = 20000
 	}
+    
+    # Adding concurrent build support?
+    construction_blocks_others = no
+
+	possible = {
+		from = { has_ascension_perk = ap_the_circle_of_life }
+	}
 	
 	on_build_start = {}
 	on_build_cancel = {}
@@ -113,7 +125,7 @@ ring_world_2_intermediate = {
 		asteroids_distance = 0
 		remove_megastructure = fromfrom
 		spawn_megastructure = {
-			name = "Ring Section A"
+			name = "NAME_Ring_Section_A"
 			type = "ring_world_2"
 			orbit_angle = 0
 			orbit_distance = 45
@@ -122,7 +134,7 @@ ring_world_2_intermediate = {
 			location = planet
 		}
 		spawn_megastructure = {
-			name = "Ring Section B"
+			name = "NAME_Ring_Section_B"
 			type = "ring_world_2"
 			orbit_angle = 90
 			orbit_distance = 45
@@ -131,7 +143,7 @@ ring_world_2_intermediate = {
 			location = planet
 		}
 		spawn_megastructure = {
-			name = "Ring Section C"
+			name = "NAME_Ring_Section_C"
 			type = "ring_world_2"
 			orbit_angle = 180
 			orbit_distance = 45
@@ -140,7 +152,7 @@ ring_world_2_intermediate = {
 			location = planet
 		}
 		spawn_megastructure = {
-			name = "Ring Section D"
+			name = "NAME_Ring_Section_D"
 			type = "ring_world_2"
 			orbit_angle = 270
 			orbit_distance = 45
@@ -154,9 +166,11 @@ ring_world_2_intermediate = {
 ring_world_2 = {
 	entity = "ringworld_3x_seams_entity"
 	portrait = "GFX_megastructure_construction_background"
-	potential = {
-		always = no #used from script only
-	}
+
+	# used from script only
+	upgrade_desc = hide
+	potential = { always = no }
+	
 	upgrade_from = {
 		ring_world_2_intermediate
 	}
@@ -173,9 +187,13 @@ ring_world_3_intermediate = {
 	build_cost = {
 		minerals = 20000
 	}
-    
+
     # Adding concurrent build support?
     construction_blocks_others = no
+
+	possible = {
+		from = { has_ascension_perk = ap_the_circle_of_life }
+	}
 
 	on_build_complete = {
 		spawn_planet = {
@@ -183,7 +201,7 @@ ring_world_3_intermediate = {
 			location = fromfrom
 			orbit_angle_offset = 30
 			init_effect = {
-				set_name = "Ring Section"
+				set_name = "NAME_Ring_Section"
 				set_planet_entity = {
 					entity = "ringworld_tech_entity_01_entity"
 					graphical_culture = fromfrom
@@ -192,6 +210,7 @@ ring_world_3_intermediate = {
 					set_surveyed = yes
 					surveyor = FROM
 				}
+				set_all_comms_surveyed = yes
 				set_planet_flag = megastructure
 			}
 		}
@@ -199,7 +218,7 @@ ring_world_3_intermediate = {
 			class = "pc_ringworld_seam"
 			location = fromfrom
 			init_effect = {
-				set_name = "Ring Section"
+				set_name = "NAME_Ring_Section"
 				set_planet_entity = {
 					entity = "ringworld_seam_entity_01_entity"
 					graphical_culture = fromfrom
@@ -208,6 +227,7 @@ ring_world_3_intermediate = {
 					set_surveyed = yes
 					surveyor = FROM
 				}
+				set_all_comms_surveyed = yes
 				set_planet_flag = megastructure
 			}
 		}
@@ -216,7 +236,7 @@ ring_world_3_intermediate = {
 			location = fromfrom
 			orbit_angle_offset = -30
 			init_effect = {
-				set_name = "Habitable Section A"
+				set_name = "NAME_Habitable_Section_A"
 				set_planet_entity = {
 					entity = "ringworld_habitable_entity_01_entity"
 					graphical_culture = fromfrom
@@ -225,6 +245,7 @@ ring_world_3_intermediate = {
 					set_surveyed = yes
 					surveyor = FROM
 				}
+				set_all_comms_surveyed = yes
 				while = {
 					limit = {
 						any_tile = { has_blocker = yes }
@@ -239,7 +260,10 @@ ring_world_3_intermediate = {
 				set_planet_flag = megastructure
 			}
 		}
-		fromfrom.planet = {
+		#fromfrom.planet = {
+		#	set_planet_flag = has_megastructure
+		#}
+		event_target:ring_section = {
 			set_planet_flag = has_megastructure
 		}
 		remove_megastructure = fromfrom
@@ -248,7 +272,7 @@ ring_world_3_intermediate = {
 				NOT = { has_star_flag = ring_section_1 }
 			}
 			set_star_flag = ring_section_1
-			event_target:ring_section = { set_name = "Habitable Section A" }
+			event_target:ring_section = { set_name = "NAME_Habitable_Section_A" }
 			break = yes
 		}
 		if = {
@@ -257,7 +281,7 @@ ring_world_3_intermediate = {
 				NOT = { has_star_flag = ring_section_2 }
 			}
 			set_star_flag = ring_section_2
-			event_target:ring_section = { set_name = "Habitable Section B" }
+			event_target:ring_section = { set_name = "NAME_Habitable_Section_B" }
 			break = yes
 		}
 		if = {
@@ -266,7 +290,7 @@ ring_world_3_intermediate = {
 				NOT = { has_star_flag = ring_section_3 }
 			}
 			set_star_flag = ring_section_3
-			event_target:ring_section = { set_name = "Habitable Section C" }
+			event_target:ring_section = { set_name = "NAME_Habitable_Section_C" }
 			break = yes
 		}
 		if = {
@@ -274,7 +298,171 @@ ring_world_3_intermediate = {
 			remove_star_flag = ring_section_1
 			remove_star_flag = ring_section_2
 			remove_star_flag = ring_section_3
-			event_target:ring_section = { set_name = "Habitable Section D" }
+			event_target:ring_section = { set_name = "NAME_Habitable_Section_D" }
+			break = yes
+		}
+	}
+}
+
+# Ruined Ring World Segment
+ring_world_ruined = {
+	entity = "ringworld_destroyed_entity"
+	portrait = "GFX_megastructure_construction_background"
+
+	potential = {
+		always = no
+	}
+}
+
+# Restored Ring World Segment
+ring_world_restored = {
+	entity = ""
+	construction_entity = "ringworld_phase_3_construction_entity"
+	portrait = "GFX_megastructure_construction_background"
+	upgrade_from = {
+		ring_world_ruined
+	}
+	build_time = 3600
+	build_cost = {
+		minerals = 20000
+	}
+    
+    # Adding concurrent build support?
+    construction_blocks_others = no
+
+	possible = {
+		from = { 
+			has_technology = tech_mega_engineering
+		}
+		custom_tooltip = {
+			fail_text = "requires_surveyed_system"
+			NOT = {
+				any_planet = {
+					is_surveyed = {
+						who = prev.from
+						status = no
+					}
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 300
+		modifier = {
+			weight = 0
+			is_country_type = fallen_empire
+		}
+	}
+
+	on_build_start = {
+		fromfrom = {
+			set_graphical_culture = root.from
+		}
+	}
+
+	on_build_complete = {
+		every_system_ambient_object = { destroy_ambient_object = this }
+		spawn_planet = {
+			class = "pc_ringworld_tech"
+			location = fromfrom
+			orbit_angle_offset = 30
+			init_effect = {
+				set_name = "NAME_Ring_Section"
+				set_planet_entity = {
+					entity = "ringworld_tech_entity_01_entity"
+					graphical_culture = fromfrom
+				}
+				surveyed = {
+					set_surveyed = yes
+					surveyor = FROM
+				}
+				set_all_comms_surveyed = yes
+				set_planet_flag = megastructure
+			}
+		}
+		spawn_planet = {
+			class = "pc_ringworld_seam"
+			location = fromfrom
+			init_effect = {
+				set_name = "NAME_Ring_Section"
+				set_planet_entity = {
+					entity = "ringworld_seam_entity_01_entity"
+					graphical_culture = fromfrom
+				}
+				surveyed = {
+					set_surveyed = yes
+					surveyor = FROM
+				}
+				set_all_comms_surveyed = yes
+				set_planet_flag = megastructure
+			}
+		}
+		spawn_planet = {
+			class = "pc_ringworld_habitable"
+			location = fromfrom
+			orbit_angle_offset = -30
+			init_effect = {
+				set_name = "NAME_Habitable_Section_A"
+				set_planet_entity = {
+					entity = "ringworld_habitable_entity_01_entity"
+					graphical_culture = fromfrom
+				}
+				surveyed = {
+					set_surveyed = yes
+					surveyor = FROM
+				}
+				set_all_comms_surveyed = yes
+				while = {
+					limit = {
+						any_tile = { has_blocker = yes }
+					}
+					random_tile = {
+						limit = { has_blocker = yes }
+						remove_blocker = yes
+					}
+				}
+				save_event_target_as = ring_section
+				trigger_megastructure_icon = yes
+				set_planet_flag = megastructure
+			}
+		}
+		remove_megastructure = fromfrom
+		from = {
+			country_event = { id = utopia.2017 }
+		}
+		if = {
+			limit = {
+				NOT = { has_star_flag = ring_section_1 }
+			}
+			set_star_flag = ring_section_1
+			event_target:ring_section = { set_name = "NAME_Habitable_Section_A" }
+			break = yes
+		}
+		if = {
+			limit = {
+				has_star_flag = ring_section_1
+				NOT = { has_star_flag = ring_section_2 }
+			}
+			set_star_flag = ring_section_2
+			event_target:ring_section = { set_name = "NAME_Habitable_Section_B" }
+			break = yes
+		}
+		if = {
+			limit = {
+				has_star_flag = ring_section_2
+				NOT = { has_star_flag = ring_section_3 }
+			}
+			set_star_flag = ring_section_3
+			event_target:ring_section = { set_name = "NAME_Habitable_Section_C" }
+			break = yes
+		}
+		if = {
+			limit = { has_star_flag = ring_section_3 }
+			remove_star_flag = ring_section_1
+			remove_star_flag = ring_section_2
+			remove_star_flag = ring_section_3
+			event_target:ring_section = { set_name = "NAME_Habitable_Section_D" }
 			break = yes
 		}
 	}

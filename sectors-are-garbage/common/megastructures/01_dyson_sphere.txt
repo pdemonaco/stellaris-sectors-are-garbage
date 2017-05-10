@@ -1,7 +1,7 @@
-@stage_2_energy = 200
-@stage_3_energy = 400
-@stage_4_energy = 600
-@stage_5_energy = 800
+@energy_stage_2 = 200
+@energy_stage_3 = 400
+@energy_stage_4 = 600
+@energy_stage_5 = 800
 #Dyson Sphere Site 
 dyson_sphere_0 = {
 	entity = "construction_platform_entity"
@@ -17,7 +17,7 @@ dyson_sphere_0 = {
 
     # Adding concurrent build support?
     construction_blocks_others = no
-
+    
 	maintenance = {
 		energy = 5
 	}
@@ -46,9 +46,12 @@ dyson_sphere_0 = {
 			fail_text = "requires_no_habitable_planets"
 			NOT = {
 				any_planet = {
-					OR = {
-						habitable_planet = yes
-						habitable_structure = yes
+					AND = {
+						OR = {
+							habitable_planet = yes
+							habitable_structure = yes
+						}
+						NOT = { has_planet_flag = habitat }
 					}
 				}
 			}
@@ -61,6 +64,10 @@ dyson_sphere_0 = {
 				is_star_class = sc_pulsar
 			}
 		}
+		custom_tooltip = {
+			fail_text = "requires_no_existing_megastructure"
+			NOT = { has_any_megastructure = yes }
+		}
 	}
 	
 	placement_rules = {
@@ -70,8 +77,8 @@ dyson_sphere_0 = {
 				is_star = yes
 			}
 			custom_tooltip = {
-				fail_text = "requires_no_existing_megastructure"
-				NOT = { solar_system = { has_any_megastructure = yes } }
+				fail_text = "requires_no_anomaly"
+				NOT = { has_anomaly = yes }
 			}
 			custom_tooltip = {
 				fail_text = "requires_no_orbital_station"
@@ -81,10 +88,23 @@ dyson_sphere_0 = {
 	}
 	
 	ai_weight = {
+		factor = 15
+		
 		modifier = {
-			weight = 0
-			NOT = {
-				has_ethic = ethic_militarist
+			factor = 0.1
+			has_any_megastructure_in_empire = yes
+		}
+		
+		modifier = {
+			factor = 0.1
+			any_system_within_border = {
+				OR = {
+					has_megastructure = dyson_sphere_1
+					has_megastructure = dyson_sphere_2
+					has_megastructure = dyson_sphere_3
+					has_megastructure = dyson_sphere_4
+					has_megastructure = dyson_sphere_5	
+				}
 			}
 		}
 	}
@@ -109,10 +129,8 @@ dyson_sphere_1 = {
 		minerals = 40000
 	}
 
-    # Adding concurrent build support?
-    construction_blocks_others = no
-
-	monthly_production = {
+	possible = {
+		from = { has_ascension_perk = ap_galactic_wonders }
 	}
 }
 
@@ -133,7 +151,11 @@ dyson_sphere_2 = {
     construction_blocks_others = no
 
 	monthly_production = {
-		energy = @stage_2_energy
+		energy = @energy_stage_2
+	}
+
+	possible = {
+		from = { has_ascension_perk = ap_galactic_wonders }
 	}
 }
 
@@ -152,9 +174,13 @@ dyson_sphere_3 = {
 
     # Adding concurrent build support?
     construction_blocks_others = no
-
+    
 	monthly_production = {
-		energy = @stage_3_energy
+		energy = @energy_stage_3
+	}
+
+	possible = {
+		from = { has_ascension_perk = ap_galactic_wonders }
 	}
 }
 
@@ -175,7 +201,11 @@ dyson_sphere_4 = {
     construction_blocks_others = no
 
 	monthly_production = {
-		energy = @stage_4_energy
+		energy = @energy_stage_4
+	}
+
+	possible = {
+		from = { has_ascension_perk = ap_galactic_wonders }
 	}
 }
 
@@ -195,6 +225,14 @@ dyson_sphere_5 = {
     # Adding concurrent build support?
     construction_blocks_others = no
 
+	monthly_production = {
+		energy = @energy_stage_5
+	}
+
+	possible = {
+		from = { has_ascension_perk = ap_galactic_wonders }
+	}
+
 	on_build_complete = {
 		every_system_planet = {
 			limit = {
@@ -212,7 +250,67 @@ dyson_sphere_5 = {
 			change_pc = pc_barren_cold
 		}		
 	}
+}
+
+# Ruined Dyson Sphere
+dyson_sphere_ruined = {
+	entity = "dyson_sphere_destroyed_entity"
+	portrait = "GFX_megastructure_construction_background"
+
+	potential = {
+		always = no
+	}
+}
+
+# Restored Dyson Sphere
+dyson_sphere_restored = {
+	entity = "dyson_sphere_phase_05_entity"
+	construction_entity = "dyson_sphere_part_4_entity"
+	portrait = "GFX_megastructure_dyson_sphere_background"
+	upgrade_from = {
+		dyson_sphere_ruined
+	}
+	build_time = 3600
+	build_cost = {
+		minerals = 40000
+	}
+
+    # Adding concurrent build support?
+    construction_blocks_others = no
+
 	monthly_production = {
-		energy = @stage_5_energy
+		energy = @energy_stage_5
+	}
+
+	possible = {
+		from = { has_technology = tech_mega_engineering }
+	}
+
+	on_build_start = {
+		fromfrom = {
+			set_graphical_culture = root.from
+		}
+	}
+
+	on_build_complete = {
+		every_system_planet = {
+			limit = {
+				OR = {
+					is_planet_class = pc_molten
+					is_planet_class = pc_toxic
+				}
+			}
+			change_pc = pc_frozen
+		}
+		every_system_planet = {
+			limit = {
+				is_planet_class = pc_barren
+			}
+			change_pc = pc_barren_cold
+		}
+		every_system_ambient_object = { destroy_ambient_object = this }
+		from = {
+			country_event = { id = utopia.2011 }
+		}
 	}
 }

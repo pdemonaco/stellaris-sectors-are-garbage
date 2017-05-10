@@ -1,6 +1,7 @@
 namespace = game_start
 
 ### Countdown to Horrid Swarm
+# From events/game_start.txt
 event = {
     id = game_start.4
     hide_window = yes
@@ -10,9 +11,9 @@ event = {
         every_country = {
             limit = { is_ai = no }
             random_list = {
-                15 = { country_event = { id = crisis.10 days = 61200 random = 500 } } # 170 years
+                20 = { country_event = { id = crisis.10 days = 61200 random = 500 } } # 170 years
                 30 = { country_event = { id = crisis.10 days = 72000 random = 500 } } # 200 years
-                35 = { country_event = { id = crisis.10 days = 90000 random = 500 } } # 250 years
+                30 = { country_event = { id = crisis.10 days = 90000 random = 500 } } # 250 years
                 20 = { country_event = { id = crisis.10 days = 108000 random = 500 } } # 300 years
             }
         }
