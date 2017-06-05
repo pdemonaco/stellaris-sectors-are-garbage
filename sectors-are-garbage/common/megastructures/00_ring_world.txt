@@ -43,10 +43,7 @@ ring_world_1 = {
 			fail_text = "requires_no_habitable_planets"
 			NOT = {
 				any_planet = {
-					OR = {
-						habitable_planet = yes
-						habitable_structure = yes
-					}
+                    colonizeable_planet = yes
 				}
 			}
 		}

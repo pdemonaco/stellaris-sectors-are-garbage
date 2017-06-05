@@ -958,6 +958,7 @@
 		MIN_HAPPINESS_DIFF_FOR_MIGRATION 	= 0.1		# Only if the difference in happiness is greater than this will a pop migrate
 		MIGRATION_SPEED						= 0.05		# Monthly migration speed of pops: when the pop has reached a migration progress of 1 it will be moved
 		WAS_ENSLAVED_LENGTH_DAYS			= 1825		# Number of days after emancipation a pop is angry for being enslaved
+        WAS_ENSLAVED_MIN_DAYS               = 30        # Number of days a pop has to be enslaved to be angry about it when emancipated
 		
 		CONSUMER_GOODS_COST					= 0.5		# mineral cost per unit of consumer goods
 		CONSUMER_GOODS_COST_PER_PLANET		= 0.01		# extra cost per planet over 1

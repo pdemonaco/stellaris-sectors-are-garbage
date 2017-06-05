@@ -59,8 +59,7 @@ think_tank_0 = {
 					who = prev.from
 					status = yes
 				}
-				habitable_planet = no	# prevent the spaceport colliding with the think tank
-				habitable_structure = no
+				colonizeable_planet = no
 			}
 			custom_tooltip = {
 				fail_text = "requires_no_anomaly"
@@ -216,7 +215,28 @@ think_tank_3 = {
 
 	possible = {
 		from = { has_ascension_perk = ap_galactic_wonders }
+	}	monthly_production = {
+		society_research = @stage_1_research_bonus
+		engineering_research = @stage_1_research_bonus
+		physics_research = @stage_1_research_bonus
 	}
+
+	maintenance = {
+		energy = 8
+	}
+}
+
+think_tank_2 = {
+	entity = "thinktank_phase_02_entity"
+	construction_entity = "thinktank_phase_02_entity"
+	portrait = "GFX_megastructure_construction_background"
+
+	place_entity_on_planet_plane = no
+	entity_offset = { x = @entity_x y = @entity_y }
+	
+	upgrade_from = {
+		think_tank_1
+
 	
 	monthly_production = {
 		society_research = @stage_3_research_bonus
