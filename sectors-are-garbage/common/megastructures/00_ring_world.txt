@@ -11,7 +11,7 @@ ring_world_1 = {
 		minerals = 10000
 		influence = 300
 	}
-
+    
     # Adding concurrent build support?
     construction_blocks_others = no
 
@@ -43,7 +43,7 @@ ring_world_1 = {
 			fail_text = "requires_no_habitable_planets"
 			NOT = {
 				any_planet = {
-                    colonizeable_planet = yes
+					colonizeable_planet = yes
 				}
 			}
 		}
@@ -70,8 +70,8 @@ ring_world_1 = {
 				NOT = { has_anomaly = yes }
 			}
 			custom_tooltip = {
-			fail_text = "requires_planets_for_material"
-			hidden:solar_system = { any_planet = { NOT = { is_star = yes } } }
+				fail_text = "requires_planets_for_material"
+				hidden:solar_system = { any_planet = { NOT = { is_star = yes } } }
 			}
 		}
 	}
@@ -104,7 +104,7 @@ ring_world_2_intermediate = {
 	build_cost = {
 		minerals = 20000
 	}
-    
+
     # Adding concurrent build support?
     construction_blocks_others = no
 
@@ -128,7 +128,7 @@ ring_world_2_intermediate = {
 			orbit_distance = 45
 			owner = from
 			graphical_culture = fromfrom
-			location = planet
+			location = star
 		}
 		spawn_megastructure = {
 			name = "NAME_Ring_Section_B"
@@ -137,7 +137,7 @@ ring_world_2_intermediate = {
 			orbit_distance = 45
 			owner = from
 			graphical_culture = fromfrom
-			location = planet
+			location = star
 		}
 		spawn_megastructure = {
 			name = "NAME_Ring_Section_C"
@@ -146,7 +146,7 @@ ring_world_2_intermediate = {
 			orbit_distance = 45
 			owner = from
 			graphical_culture = fromfrom
-			location = planet
+			location = star
 		}
 		spawn_megastructure = {
 			name = "NAME_Ring_Section_D"
@@ -155,7 +155,7 @@ ring_world_2_intermediate = {
 			orbit_distance = 45
 			owner = from
 			graphical_culture = fromfrom
-			location = planet
+			location = star
 		}
 	}
 }
@@ -257,10 +257,7 @@ ring_world_3_intermediate = {
 				set_planet_flag = megastructure
 			}
 		}
-		#fromfrom.planet = {
-		#	set_planet_flag = has_megastructure
-		#}
-		event_target:ring_section = {
+		fromfrom.planet = {
 			set_planet_flag = has_megastructure
 		}
 		remove_megastructure = fromfrom
@@ -323,7 +320,7 @@ ring_world_restored = {
 	build_cost = {
 		minerals = 20000
 	}
-    
+
     # Adding concurrent build support?
     construction_blocks_others = no
 

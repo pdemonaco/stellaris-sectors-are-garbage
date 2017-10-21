@@ -4,4 +4,4 @@ tags={
 	"Fixes"
 	"Balance"
 }
-supported_version="1.7.2"
+supported_version="1.8.*"

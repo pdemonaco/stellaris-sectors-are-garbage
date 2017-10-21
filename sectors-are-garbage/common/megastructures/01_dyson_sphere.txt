@@ -1,7 +1,7 @@
-@energy_stage_2 = 200
-@energy_stage_3 = 400
-@energy_stage_4 = 600
-@energy_stage_5 = 800
+@energy_stage_2 = 500
+@energy_stage_3 = 1000
+@energy_stage_4 = 1500
+@energy_stage_5 = 2000
 #Dyson Sphere Site 
 dyson_sphere_0 = {
 	entity = "construction_platform_entity"
@@ -17,7 +17,7 @@ dyson_sphere_0 = {
 
     # Adding concurrent build support?
     construction_blocks_others = no
-    
+
 	maintenance = {
 		energy = 5
 	}
@@ -31,6 +31,10 @@ dyson_sphere_0 = {
 			fail_text = "requires_inside_border"
 			is_inside_border = from
 		}
+		custom_tooltip = {
+			fail_text = "requires_no_existing_dyson_sphere"
+			from = { NOT = { has_country_flag = built_dyson_sphere } }
+		}		
 		custom_tooltip = {
 			fail_text = "requires_surveyed_system"
 			NOT = {
@@ -113,6 +117,7 @@ dyson_sphere_0 = {
 	on_build_cancel = {}
 	on_build_complete = {
 		set_star_flag = dyson_sphere_built
+		from = { set_country_flag = built_dyson_sphere }
 	}
 }
 
@@ -126,7 +131,7 @@ dyson_sphere_1 = {
 	}
 	build_time = 3600
 	build_cost = {
-		minerals = 40000
+		minerals = 50000
 	}
 
 	possible = {
@@ -144,7 +149,7 @@ dyson_sphere_2 = {
 	}
 	build_time = 3600
 	build_cost = {
-		minerals = 40000
+		minerals = 50000
 	}
 
     # Adding concurrent build support?
@@ -169,12 +174,12 @@ dyson_sphere_3 = {
 	}
 	build_time = 3600
 	build_cost = {
-		minerals = 40000
+		minerals = 50000
 	}
 
     # Adding concurrent build support?
     construction_blocks_others = no
-    
+
 	monthly_production = {
 		energy = @energy_stage_3
 	}
@@ -194,7 +199,7 @@ dyson_sphere_4 = {
 	}
 	build_time = 3600
 	build_cost = {
-		minerals = 40000
+		minerals = 50000
 	}
 
     # Adding concurrent build support?
@@ -219,12 +224,8 @@ dyson_sphere_5 = {
 	}
 	build_time = 3600
 	build_cost = {
-		minerals = 40000
+		minerals = 50000
 	}
-
-    # Adding concurrent build support?
-    construction_blocks_others = no
-
 	monthly_production = {
 		energy = @energy_stage_5
 	}
@@ -270,9 +271,9 @@ dyson_sphere_restored = {
 	upgrade_from = {
 		dyson_sphere_ruined
 	}
-	build_time = 3600
+	build_time = 7200
 	build_cost = {
-		minerals = 40000
+		minerals = 50000
 	}
 
     # Adding concurrent build support?
@@ -283,7 +284,7 @@ dyson_sphere_restored = {
 	}
 
 	possible = {
-		from = { has_technology = tech_mega_engineering }
+		from = { has_technology = tech_mega_engineering }		
 	}
 
 	on_build_start = {

@@ -1,7 +1,7 @@
-@stage_1_research_bonus	= 40
-@stage_2_research_bonus	= 80
-@stage_3_research_bonus	= 120
-@stage_4_research_bonus	= 130
+@stage_1_research_bonus	= 75
+@stage_2_research_bonus	= 150
+@stage_3_research_bonus	= 225
+@stage_4_research_bonus	= 250
 @entity_x				= 0
 @entity_y 				= -20
 
@@ -47,12 +47,13 @@ think_tank_0 = {
 				NOR = {
 					has_planet_flag = megastructure
 					has_planet_flag = has_megastructure
+					solar_system = { has_any_megastructure = yes }
 				}
 			}
 			custom_tooltip = {
-				fail_text = "requires_no_existing_megastructure"
-				NOT = { solar_system = { has_any_megastructure = yes } }
-			}
+				fail_text = "requires_no_existing_think_tank"
+				from = { NOT = { has_country_flag = built_think_tank } }
+			}			
 			custom_tooltip = {
 				fail_text = "requires_survey_not_habitable"
 				is_surveyed = {			# prevent leaking habitability information
@@ -120,6 +121,7 @@ think_tank_0 = {
 		fromfrom.planet = {
 			set_planet_flag = has_megastructure
 		}
+		from = { set_country_flag = built_think_tank }
 	}
 }
 
@@ -137,12 +139,12 @@ think_tank_1 = {
 
 	build_time = 2400
 	build_cost = {
-		minerals = 20000
+		minerals = 30000
 	}
-	    
+
     # Adding concurrent build support?
     construction_blocks_others = no
-
+	
 	possible = {
 		from = { has_ascension_perk = ap_galactic_wonders }
 	}
@@ -172,9 +174,9 @@ think_tank_2 = {
 
 	build_time = 2400
 	build_cost = {
-		minerals = 20000
+		minerals = 30000
 	}
-	    
+	
     # Adding concurrent build support?
     construction_blocks_others = no
 
@@ -207,36 +209,15 @@ think_tank_3 = {
 
 	build_time = 2400
 	build_cost = {
-		minerals = 20000
+		minerals = 30000
 	}
-	    
-    # Adding concurrent build support?
+
+	# Adding concurrent build support?
     construction_blocks_others = no
 
 	possible = {
 		from = { has_ascension_perk = ap_galactic_wonders }
-	}	monthly_production = {
-		society_research = @stage_1_research_bonus
-		engineering_research = @stage_1_research_bonus
-		physics_research = @stage_1_research_bonus
 	}
-
-	maintenance = {
-		energy = 8
-	}
-}
-
-think_tank_2 = {
-	entity = "thinktank_phase_02_entity"
-	construction_entity = "thinktank_phase_02_entity"
-	portrait = "GFX_megastructure_construction_background"
-
-	place_entity_on_planet_plane = no
-	entity_offset = { x = @entity_x y = @entity_y }
-	
-	upgrade_from = {
-		think_tank_1
-
 	
 	monthly_production = {
 		society_research = @stage_3_research_bonus
@@ -305,9 +286,9 @@ think_tank_restored = {
 	}
 	build_time = 3600
 	build_cost = {
-		minerals = 40000
+		minerals = 30000
 	}
-    
+
     # Adding concurrent build support?
     construction_blocks_others = no
 
@@ -318,7 +299,7 @@ think_tank_restored = {
 	}
 
 	possible = {
-		from = { has_technology = tech_mega_engineering }
+		from = { has_technology = tech_mega_engineering }	
 	}
 
 	on_build_start = {
