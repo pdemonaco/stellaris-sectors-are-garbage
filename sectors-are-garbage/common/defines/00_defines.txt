@@ -767,7 +767,7 @@
 
 		MISSION_PROGRESS_MAX					= 1	# When is a mission finished?
 
-		CORE_SECTOR_SYSTEM_CAP					= 85    # Too many systems with owned planets in core sector will apply modifier inefficient_planet_management.
+		CORE_SECTOR_SYSTEM_CAP					= 90    # Too many systems with owned planets in core sector will apply modifier inefficient_planet_management.
 		SECTOR_CAP								= 2	    # Too many sectors will apply modifier inefficient_sector_management.
 		SECTOR_CAP_INCR							= 0.25	# 0.25 means that for every four planets an extra sector can be created.
 		SECTOR_SUPPORT_RESOURCE_AMOUNT_LARGE	= 1000 	# How much resources each click will give the sector if CTRL is held down
