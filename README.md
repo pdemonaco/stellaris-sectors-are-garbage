@@ -5,3 +5,5 @@ Does a couple things:
   * Energy output 500, 1000, 1500, 2000
 
 See the [Stellaris wiki](http://www.stellariswiki.com/Modding) for more info on how to install.
+
+It's also on [steam workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1194087507) for easier installing.
