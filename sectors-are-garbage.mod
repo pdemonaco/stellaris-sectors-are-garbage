@@ -4,4 +4,5 @@ tags={
 	"Fixes"
 	"Balance"
 }
-supported_version="1.8.*"
+remote_file_id="1194087507"
+supported_version="2.0.*"
