@@ -141,7 +141,7 @@
 		PLANET_TILT_FROM_SUN				 = 0.52  # Tilt away from sun
 		PLANET_RING_TILT_FROM_SUN			 = -0.16
 		PLANET_MAP_ICON_OFFSET				 = 0.6	 # based on planet size
-		PLANET_DISSOLVE_ANIMATION_TIME_SCALE = 10.0  # Larger value => planet dissolve animation lasts longer
+		PLANET_DISSOLVE_ANIMATION_TIME_SCALE = 7.4  # Larger value => planet dissolve animation lasts longer
 
 		MEGASTRUCTURE_MAP_ICON_OFFSET		= 0.06	# based on mega structure size
 
@@ -541,7 +541,7 @@
 		LEADER_ADMIRAL_FLEET_COMBAT_SHIPS_KILLED_CONVERSION			= 0.25 # Scale factor for total number of ships killed after combat when calculating experience gain for Admiral
 
 		LEADER_GENERAL_GROUND_COMBAT_BASE_EXPERIENCE				= 10 # Leader General base experience from ground combat
-		LEADER_GENERAL_GROUND_COMBAT_EXPERIENCE_SCALE				= 0.5 # Scale factor used when calculating experience gain for General
+		LEADER_GENERAL_GROUND_COMBAT_EXPERIENCE_SCALE				= 2.5 # Scale factor used when calculating experience gain for General
 		LEADER_GENERAL_GROUND_COMBAT_ARMIES_KILLED_CONVERSION		= 0.25 # Scale factor for total number of armies killed after combat when calculating experience gain for General
 
 		LEADER_SCIENTIST_LEADING_RESEARCH_FIELD_EXPERIENCE			= 3.5
@@ -572,15 +572,16 @@
 		PLANETARY_BUILDING_ADD_FACTOR 	= 20		# Used in the calculation of the planetary building progress
 		ORBITAL_BUILDING_DIV_FACTOR		= 6		# Used in the calculation of the orbital building progress
 
-		WAR_EXHAUSTION_SHIP_KILLED_MULT		  = 2.0		# Multiplier of war exhaustion gained from ships
-		WAR_EXHAUSTION_ARMY_KILLED_MULT		  = 0.25	# Multiplier of war exhaustion gained from land battles (armies)
+		WAR_EXHAUSTION_NAVAL_CAP_ADD		  = 100
+		WAR_EXHAUSTION_SHIP_KILLED_MULT		  = 1.50	# Multiplier of war exhaustion gained from ships
+		WAR_EXHAUSTION_ARMY_KILLED_MULT		  = 0.20	# Multiplier of war exhaustion gained from land battles (armies)
 		WAR_EXHAUSTION_PLANET_DESTRUCTION_DIV = 2.0		# War exhaustion from planets destroyed
-		WAR_EXHAUSTION_SYSTEM_OCCUPATION_MULT = 1.0		# War exhaustion from occupied systems
-		WAR_EXHAUSTION_PASSIVE_GAIN_YEARLY	  = 0.083	# The amount of yearly war exhaustion gained during war while under WAR_EXHAUSTION_PASSIVE_GAIN_CUTOFF
+		WAR_EXHAUSTION_PASSIVE_GAIN_YEARLY	  = 0.1		# The amount of yearly war exhaustion gained during war while under WAR_EXHAUSTION_PASSIVE_GAIN_CUTOFF
+		WAR_EXHAUSTION_PASSIVE_WAR_SIZE_DIV	  = 0.1	
 		WAR_EXHAUSTION_PASSIVE_GAIN_CUTOFF	  = 1.0		# At this amount of war exhaustion (excluding occupation) you stop getting war exhaustion passively over time
 		WAR_EXHAUSTION_FROM_UNITS_CUTOFF	  = 1.0		# At this amount of war exhaustion (excluding occupation) you stop gaining war exhaustion from lost units
-		WAR_EXHAUSTION_ENFORCE_STATUS_QUO	  = 1.0		# One side can enforce status quo when the other side is at this level of war exhaustion
-		WAR_EXHAUSTION_HIGH_ALERT			  = 0.75	# Show alert if war exhaustion >= this
+		WAR_EXHAUSTION_ENFORCE_STATUS_QUO	  = 0.0		# One side can enforce status quo when the other side is at this level of war exhaustion (disabled if set to 0)
+		WAR_EXHAUSTION_HIGH_THRESHOLD		  = 1.0		# Apply negative modifier and show alert if war exhaustion >= this
 		
 		REBELS_JOIN_DISTANCE_SQRT			= 100.0		# Distance threshold if rebels are to join an already existing rebel.
 		REBELS_POWER_THRESHOLD 				= 0.5 		# A Threshold that controls when rebels think they have a chance Higher = more unwilling
@@ -651,6 +652,7 @@
 		AUTO_DECLINE_DIPLOMACY_DAYS			= 180	# Number of days after which diplomatic action will automatically be declined
 		
 		FEDERATION_FLEET_SIZE				= 0.2	# Federation fleet capacity is this % of all members' fleets
+		FEDERATION_MAX_FLEET_SIZE			= 500
 		
 		MIN_RIVAL_YEARS						= 10	# Years before you can remove an empire as a rival
 		DEFENSIVE_PACT_INFLUENCE_COST  		= 1	# Per defensive pact
@@ -801,12 +803,12 @@
 		TECH_COST_MULT_NUM_POPS					= 0.0 # Each non-free Pop adds +X% tech cost
 		TECH_WEIGHT_PREVIOUS_OPTION				= 0.5	# If a tech was one of the alternatives last time its weight will be multiplied with TECH_WEIGHT_PREVIOUS_OPTION
 
-		## tradition cost = ( base_cost + ( ( cost_tradition * num_traditions )^traditions_exponential ) + cost_pop*num_pops ) * ( 1 + cost_planet*num_planets )
+		## tradition cost = ( base_cost + ( cost_tradition * num_traditions )^traditions_exponential ) * ( 1 + cost_planet*num_planets + cost_system*num_systems )
 		TRADITION_COST_TRADITION				= 6
 		TRADITION_COST_TRADITION_EXP			= 1.639 	# numbers like 1.656 or 1.639	
 		TRADITION_COST_MULT_TRADITION_GROUP		= 0.05		# each adopted group adds +X% to total cost	
 		TRADITION_COST_MULT_NUM_COLONIES		= 0.20		# Each Planet adds +X% Tradition cost
-		TRADITION_COST_MULT_NUM_SYSTEMS			= 0.02		# Each System adds +X% Tradition cost	
+		TRADITION_COST_MULT_NUM_SYSTEMS			= 0.01		# Each System adds +X% Tradition cost	
 
 		KEYBOARD_DOUBLE_CLICK_TIME				= 0.5	# Seconds listening to control group double clicks.
 
@@ -823,7 +825,7 @@
 		SECTOR_SUPPORT_RESOURCE_AMOUNT_LARGE	= 1000 	# How much resources each click will give the sector if CTRL is held down
 		SECTOR_SUPPORT_RESOURCE_AMOUNT			= 100 	# How much resources each click will give the sector.
 
-		NEW_HEIR_CHANCE							= 0.05	# Chance to get a new heir each day. Range is 0 to 1
+		NEW_HEIR_CHANCE						= 0.05	# Chance to get a new heir each day. Range is 0 to 1
 		MIN_ELECTION_CANDIDATES					= 4		# If we have fewer factions than this, add additional independent candidates
 		ELECTION_BASE_SUPPORT					= 0.05	# Election candidates always have at least this much support
 		ELECTION_INDEPENDENT_SUPPORT			= 0.20	# Independent candidates get this much extra support
@@ -1213,7 +1215,7 @@
 		CLAIM_COST_RIVAL_DISCOUNT 			= -0.20		# Claims are ( 1 + this ) much less expensive against rivals
 		
 		TRADITION_COST_RESOURCES			= { "unity" } # Resource for tradition cost
-		TRADITION_COST_AMOUNTS				= { 56 }	# Tradition base cost
+		TRADITION_COST_AMOUNTS				= { 100 }	# Tradition base cost
 	}
 
 	NEngine = {
@@ -1274,7 +1276,7 @@
 		CRISIS_MILITARY_POWER_MULT_DESPERATION = 0.10		# AI willing to engage crisis factions at these odds when down to their last few worlds
 		
 		BOSS_MILITARY_POWER = 40000			# The military power at which AI feels safe to engage a 'boss' creature
-		FALLEN_EMPIRE_AVOID_DISTANCE = 100
+		FALLEN_EMPIRE_FLEET_SIZE = 100		# Fallen empires will have fleets of max this size
 	
 		WAS_HUMAN_MONTHS = 60							# Amount of months that the AI will refrain from making large changes to the empire if it's taking over from a player
 		
@@ -1605,6 +1607,7 @@
 		PEACE_WAR_EXHAUSTION_FACTOR = 100
 		PEACE_OCCUPATION_FACTOR = 100
 		PEACE_STATUS_QUO_FACTOR = -75
+		PEACE_HIGH_WE_STATUS_QUO_FACTOR = 100
 		PEACE_DEMAND_SURRENDER_FACTOR = -100
 		PEACE_DEFENDING_CLAIM_FACTOR = -10
 		PEACE_DEFENDING_IMPORTANT_CLAIM_FACTOR = -100	# For systems with starbases or planets
