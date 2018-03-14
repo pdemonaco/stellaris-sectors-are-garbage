@@ -348,6 +348,8 @@
 		GROWING_POP_ALPHA						= 0.60 # Used in planet view surface tab
 		QUEUED_BUILDING_ALPHA					= 0.60 # Used in planet view surface tab
 		POTENTIAL_ARMY_ALPHA					= 0.45 # Used in planet view army tab
+		
+		HIGH_PIRACY_RISK						= 0.5  # used in alerts
 
 		ANOMALY_VIEW_RISK_LOW					= 0.1	# Color green if < 11%
 		ANOMALY_VIEW_RISK_MEDIUM				= 0.49	# Color yellow if < 50% else red
@@ -422,6 +424,15 @@
 		END_GAME_START_MAX = 800
 		END_GAME_START_MIN = 50
 		START_YEAR_SLIDER_INTERVAL = 25
+		
+		PIRACY_BASE_DEFENSE = 10			# Base anti-piracy score
+		PIRACY_OWNED_SYSTEM_SCORE = 1.5		# Per owned system (anti-piracy)
+		PIRACY_STARBASE_SCORE = 2			# Per upgraded starbase (anti-piracy)			
+		PIRACY_STARBASE_LEVEL_SCORE = 1		# Per upgraded starbase level score (anti-piracy)
+		PIRACY_BASE_SCORE = 0				# Base piracy score
+		PIRACY_LAWLESS_SYSTEM_SCORE = 1		# Per lawless system connected to territory (increases piracy)
+		PIRACY_CUT_OFF_SYSTEM_SCORE = 5		# Per cut-off system inside territory (increases piracy)
+		PIRATE_SPAWN_INTERVAL = 1800		# In days
 		
 		TECH_COST_DEFAULT = 1.0
 		TECH_COST_MIN = 0.25
@@ -512,8 +523,6 @@
 
 		BASE_SURVEY_TIME 		= 20.0				# Base Time In Days for surveying a planet
 
-		PIRATE_TARGET_DIST 		= 80.0				# Target system can't be further away from home system
-
 		LEADER_POOL_SIZE		= 3				# Each leader pool will consist of this many leaders
 		LEADER_POOL_LEAD_TIME	= 10				# Years leaders will remain in the leader pool until replaced
 		LEADER_HIRING_COST 		= 200
@@ -550,7 +559,7 @@
 		LEADER_SCIENTIST_COMPLETED_SPECIAL_PROJECT_EXPERIENCE		= 100	# Experience gained from completing a special project
 		LEADER_SCIENTIST_DEEP_SCAN_EXPERIENCE						= 200	# Experience gained from a deep scan
 		LEADER_SCIENTIST_ASSIST_RESEARCH							= 0.10 	# Experience gained from assisting research per day
-		LEADER_SCIENTIST_ASSIST_RESEARCH_MULT						= 0.125	# Assist Research modifier-mult per skill level (this value times skill level equals modifier)
+		LEADER_SCIENTIST_ASSIST_RESEARCH_MULT						= 0.20	# Assist Research modifier-mult per skill level (this value times skill level equals modifier)
 
 		LEADER_GOVERNOR_BUILDING_OR_TILE_CLEAR_EXPERIENCE			= 0.5 # Scale-value for each completed building-construction or tile-clear multiplied with the resources spent
 		LEADER_GOVERNOR_EDICT_GAIN_EXPERIENCE						= 0.05 # Scale-value for the exp-gain given each month an Edict is active on the planet multiplied with the resources spent
@@ -825,7 +834,7 @@
 		SECTOR_SUPPORT_RESOURCE_AMOUNT_LARGE	= 1000 	# How much resources each click will give the sector if CTRL is held down
 		SECTOR_SUPPORT_RESOURCE_AMOUNT			= 100 	# How much resources each click will give the sector.
 
-		NEW_HEIR_CHANCE						= 0.05	# Chance to get a new heir each day. Range is 0 to 1
+		NEW_HEIR_CHANCE							= 0.05	# Chance to get a new heir each day. Range is 0 to 1
 		MIN_ELECTION_CANDIDATES					= 4		# If we have fewer factions than this, add additional independent candidates
 		ELECTION_BASE_SUPPORT					= 0.05	# Election candidates always have at least this much support
 		ELECTION_INDEPENDENT_SUPPORT			= 0.20	# Independent candidates get this much extra support
@@ -872,11 +881,11 @@
 		COMMAND_LIMIT_MAX										= 200	# Max value of Command Limit
 		COMMAND_LIMIT_BASE 										= 20	# Base value of Command Limit
 		
-		NAVAL_CAPACITY_MAX										= 1000	# Max value of Naval Capacity
+		NAVAL_CAPACITY_MAX										= 9999	# Max value of Naval Capacity
 		NAVAL_CAPACITY_BASE 									= 20	# Base value of Naval Capacity
 		NAVAL_CAPACITY_POP_MULT									= 0.10	# Mult value of Naval Capacity for each Pop
 		
-		STARBASE_CAPACITY_MAX									= 50	# Max value of Starbase Capacity
+		STARBASE_CAPACITY_MAX									= 999	# Max value of Starbase Capacity
 		STARBASE_CAPACITY_BASE 									= 3		# Base value of Starbase Capacity
 		STARBASE_CAPACITY_SYSTEM_MULT							= 0.05	# Mult value of Starbase Capacity for each owned system	
 		STARBASE_CAPACITY_POP_MULT								= 0.025	# Mult value of Starbase Capacity for each Pop	
@@ -1225,6 +1234,10 @@
 	NAI = {
 		AI_MAX_DISTANCE = 1000						# AI considers all systems more distant than this to be equally uninteresting
 		
+		AI_MINERAL_MAINT_DISCOUNT = 0.75			# AI pays this much (of base) for consumer goods and ship mineral maintenance
+		AI_ENERGY_MAINT_DISCOUNT = 0.75				# AI pays this much (of base) ship energy maintenance
+		AI_POP_MODIFICATION_DISCOUNT = 0.25			# AI pays this much (of base) for gene/robomodding projects
+		
 		MIN_DISTANCE_TO_JUMP = 3					# Target must be at least this many systems away for AI to want to use jump drive
 		AI_JUMP_DRIVE_BRAVERY = 0.33				# AI will not want to jump into systems unless enemy is this much weaker than them, relatively
 		
@@ -1452,8 +1465,8 @@
 		TRADE_VALUE_RESOURCE = 2	# for minerals and energy (scaled by income & need)
 		TRADE_VALUE_RESOURCE_MONTHLY_MULT = 0.5 # value of monthly resources is multiplied by this compared to lump-sum
 		TRADE_VALUE_STRATEGIC_RESOURCE = 1 # for 1 strategic resource (per year)
-		TRADE_VALUE_STRATEGIC_RESOURCE_POP = 0.01 # Extra strategic resource value per pop
-		TRADE_VALUE_STRATEGIC_RESOURCE_MAX_POPS = 400 # Over this, additional pops do not count
+		TRADE_VALUE_STRATEGIC_RESOURCE_POP = 0.002 # Extra strategic resource value per pop
+		TRADE_VALUE_STRATEGIC_RESOURCE_MAX_POPS = 500 # Over this, additional pops do not count
 		TRADE_VALUE_SYSTEM = 5
 		TRADE_VALUE_COLONY = 0.2 # Per pop
 		TRADE_VALUE_SENSOR_CHARTS = 2 # Per new comms
