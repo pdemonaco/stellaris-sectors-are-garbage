@@ -431,7 +431,7 @@
 		PIRACY_STARBASE_LEVEL_SCORE = 1		# Per upgraded starbase level score (anti-piracy)
 		PIRACY_BASE_SCORE = 0				# Base piracy score
 		PIRACY_LAWLESS_SYSTEM_SCORE = 1		# Per lawless system connected to territory (increases piracy)
-		PIRACY_CUT_OFF_SYSTEM_SCORE = 5		# Per cut-off system inside territory (increases piracy)
+		PIRACY_CUT_OFF_SYSTEM_SCORE = 2		# Per cut-off system inside territory (increases piracy)
 		PIRATE_SPAWN_INTERVAL = 1800		# In days
 		
 		TECH_COST_DEFAULT = 1.0
@@ -780,7 +780,7 @@
 		PLANET_COMBAT_WIDTH_BASE				= 5 # Maximum number of troops that can fight at the same time
 		PLANET_COMBAT_WIDTH_FROM_SIZE 			= 0.2 # Extra combat width per tile
 		
-		GENERAL_DEATH_CHANCE					= 0.1		# Chance that general dies when an army under command is destroyed (scaled to number of armies)
+		GENERAL_DEATH_CHANCE					= 0.05		# Chance that general dies when an army under command is destroyed (scaled to number of armies)
 
 		MAX_OBSERVATION_STATIONS 				= 8 	#Maximum observation stations per planet
 
@@ -908,6 +908,8 @@
 		GATEWAYS_MIN_DISTANCE	= 200		# Min distance between generated shortcuts and their endpoint
 		GALAXY_GENERATION_GATEWAYS_PERCENTAGE	= 0.05		# percentage of systems that will have a shortcut at game start
 		SCIENCE_SHIP_BASIC_SURVEY_SPEED = 1
+
+		EDICT_MAX_RESOURCE_COST = 1000000
 	}
 
 	NSpecies = {
@@ -972,6 +974,8 @@
 		OUT_OF_COMBAT_SHIELD_REGEN_MULT		= 5.0		# Shields recharge this much faster outside combat
 
 		SHIP_SPEED_SCALE					= 0.045		# Setting this to 1 makes the scripted speed value correspond to units/day
+
+		SHIP_MAX_EVASION					= 0.9		# The maximum evasion value a ship is allowed to have (percent)
 
 		FLEET_MOVE_MAX_DIST_SHIPS			= 10.0		# Max distance that ships are allowed to travel before last ship
 
@@ -1234,8 +1238,6 @@
 	NAI = {
 		AI_MAX_DISTANCE = 1000						# AI considers all systems more distant than this to be equally uninteresting
 		
-		AI_MINERAL_MAINT_DISCOUNT = 0.75			# AI pays this much (of base) for consumer goods and ship mineral maintenance
-		AI_ENERGY_MAINT_DISCOUNT = 0.75				# AI pays this much (of base) ship energy maintenance
 		AI_POP_MODIFICATION_DISCOUNT = 0.25			# AI pays this much (of base) for gene/robomodding projects
 		
 		MIN_DISTANCE_TO_JUMP = 3					# Target must be at least this many systems away for AI to want to use jump drive
@@ -1708,6 +1710,7 @@
 		MAX_EXPANSION_DISTANCE = 1				# Max number of jumps away AI will build starbases
 		MAX_EXPANSION_DISTANCE_SUBJECT = 1		# Max number of jumps away AI subjects will build starbases
 		EXPANSION_OWN_PRIORITY = 1000			# Priority on rebuilding destroyed starbases in colonized systems
+		EXPANSION_CUT_OFF_SYSTEM_PRIORITY = 10	# Priority on systems cut-off inside own territory
 		EXPANSION_BORDERING_PRIORITY = 100		# How much will AI prioritize bordering systems when building starbases
 		EXPANSION_RESOURCE_PRIORITY = 2			# How much will AI prioritize resource-rich systems when building starbases
 		EXPANSION_COLONY_PRIORITY = 10			# How much will AI prioritize systems with colonizeable worlds when building starbases
