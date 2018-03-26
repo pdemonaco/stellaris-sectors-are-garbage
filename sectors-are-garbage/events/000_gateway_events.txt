@@ -25,7 +25,14 @@ country_event = {
 	immediate = {
 		from = { save_event_target_as = gateway_system }
 		set_country_flag = gateway_built
-                add_seen_bypass_type = gateway
+                if = {
+                        limit = {
+                                NOT = {
+                                        has_seen_any_bypass = gateway
+                                }
+                        }
+                        add_seen_bypass_type = gateway
+                }
 	}	
 	
 	option = {
