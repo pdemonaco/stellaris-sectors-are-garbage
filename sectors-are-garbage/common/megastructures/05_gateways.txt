@@ -5,8 +5,9 @@ gateway_0 = {
 	construction_entity = "construction_platform_entity"
 	portrait = "GFX_megastructure_construction_background"
 	place_entity_on_planet_plane = no
-	build_outside_gravity_well = yes 		# indicates this will use "free" placement between the system's inner and outer ring
-							# if this option is active, the placement_rules will be completely ignored
+        # indicates this will use "free" placement between the system's inner and outer ring
+	# if this option is active, the placement_rules will be completely ignored
+	build_outside_gravity_well = yes
 	show_galactic_map_icon = no
 	build_time = 1080
 	build_cost = {
@@ -14,7 +15,7 @@ gateway_0 = {
 		influence = 100
 	}
 
-        # Adding concurrent build support? 
+        # Adding concurrent build support
 	construction_blocks_others = no
 
 	potential = {
@@ -51,7 +52,7 @@ gateway_0 = {
 			from = { has_technology = tech_gateway_construction }
 		}
 	}
-# those would be ignored since the gateway is being "free-placed" between the inner and outer radius of the syste
+        
         # those would be ignored since the gateway is being "free-placed" between the inner and outer radius of the system
 	placement_rules = {	
 	}
@@ -89,8 +90,9 @@ gateway_final = {
 	construction_entity = "construction_platform_entity"
 	portrait = "GFX_megastructure_construction_background"
 	place_entity_on_planet_plane = no
-	# build_outside_gravity_well = yes 		# indicates this will use "free" placement between the system's inner and outer ring
-							# if this option is active, the placement_rules will be completely ignored
+        # indicates this will use "free" placement between the system's inner and outer ring
+	# if this option is active, the placement_rules will be completely ignored
+	build_outside_gravity_well = yes
 	show_galactic_map_icon = no
 	potential = {
 		has_technology = tech_gateway_activation
@@ -130,9 +132,8 @@ gateway_ruined = {
 	entity = "deactivated_gateway_entity"
 	portrait = "GFX_megastructure_construction_background"
 	place_entity_on_planet_plane = no
-	build_outside_gravity_well = yes        # Adding concurrent build support? 
-        construction_blocks_others = no
-	bypass_type = gateway
+	build_outside_gravity_well = yes
+        bypass_type = gateway
 	show_galactic_map_icon = no
 
 	potential = {
