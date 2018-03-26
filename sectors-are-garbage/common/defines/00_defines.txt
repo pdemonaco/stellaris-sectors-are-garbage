@@ -549,7 +549,7 @@
 		LEADER_ADMIRAL_FLEET_COMBAT_EXPERIENCE_SCALE				= 0.5 # Scale factor used when calculating experience gain for Admiral
 		LEADER_ADMIRAL_FLEET_COMBAT_SHIPS_KILLED_CONVERSION			= 0.25 # Scale factor for total number of ships killed after combat when calculating experience gain for Admiral
 
-		LEADER_GENERAL_GROUND_COMBAT_BASE_EXPERIENCE				= 10 # Leader General base experience from ground combat
+		LEADER_GENERAL_GROUND_COMBAT_BASE_EXPERIENCE				= 100 # Leader General base experience from ground combat
 		LEADER_GENERAL_GROUND_COMBAT_EXPERIENCE_SCALE				= 2.5 # Scale factor used when calculating experience gain for General
 		LEADER_GENERAL_GROUND_COMBAT_ARMIES_KILLED_CONVERSION		= 0.25 # Scale factor for total number of armies killed after combat when calculating experience gain for General
 
@@ -582,15 +582,17 @@
 		ORBITAL_BUILDING_DIV_FACTOR		= 6		# Used in the calculation of the orbital building progress
 
 		WAR_EXHAUSTION_NAVAL_CAP_ADD		  = 100
-		WAR_EXHAUSTION_SHIP_KILLED_MULT		  = 1.50	# Multiplier of war exhaustion gained from ships
-		WAR_EXHAUSTION_ARMY_KILLED_MULT		  = 0.20	# Multiplier of war exhaustion gained from land battles (armies)
-		WAR_EXHAUSTION_PLANET_DESTRUCTION_DIV = 2.0		# War exhaustion from planets destroyed
+		WAR_EXHAUSTION_SHIP_KILLED_MULT		  = 2.00	# Multiplier of war exhaustion gained from ships
+		WAR_EXHAUSTION_ARMY_KILLED_MULT		  = 0.25	# Multiplier of war exhaustion gained from land battles (armies)
+		WAR_EXHAUSTION_PLANET_DESTRUCTION_MULT = 5.0		# War exhaustion from planets destroyed
 		WAR_EXHAUSTION_PASSIVE_GAIN_YEARLY	  = 0.1		# The amount of yearly war exhaustion gained during war while under WAR_EXHAUSTION_PASSIVE_GAIN_CUTOFF
 		WAR_EXHAUSTION_PASSIVE_WAR_SIZE_DIV	  = 0.1	
 		WAR_EXHAUSTION_PASSIVE_GAIN_CUTOFF	  = 1.0		# At this amount of war exhaustion (excluding occupation) you stop getting war exhaustion passively over time
 		WAR_EXHAUSTION_FROM_UNITS_CUTOFF	  = 1.0		# At this amount of war exhaustion (excluding occupation) you stop gaining war exhaustion from lost units
-		WAR_EXHAUSTION_ENFORCE_STATUS_QUO	  = 0.0		# One side can enforce status quo when the other side is at this level of war exhaustion (disabled if set to 0)
 		WAR_EXHAUSTION_HIGH_THRESHOLD		  = 1.0		# Apply negative modifier and show alert if war exhaustion >= this
+		
+		ENFORCE_STATUS_QUO_ENABLED	 		  = yes		# Can status quo be enforced at high WE?
+		ENFORCE_STATUS_QUO_MONTHS			  = 24
 		
 		REBELS_JOIN_DISTANCE_SQRT			= 100.0		# Distance threshold if rebels are to join an already existing rebel.
 		REBELS_POWER_THRESHOLD 				= 0.5 		# A Threshold that controls when rebels think they have a chance Higher = more unwilling
@@ -806,15 +808,15 @@
 		TECH_WEIGHT_POTENTIAL_ADD				= 0
 		TECH_RESEARCH_NO_LEADER_PENALTY			= -0.25
 		TECH_COST_MULT_FALLEN_EMPIRE			= 2	# Awakened Empires pay this much more to research techs
-		TECH_COST_MULT_NUM_SYSTEMS				= 0.02 # Each System adds +X% tech cost
+		TECH_COST_MULT_NUM_SYSTEMS				= 0.01 # Each System adds +X% tech cost
 		TECH_COST_MULT_NUM_COLONIES				= 0.05 # Each Planet adds +X% tech cost
 		TECH_COST_FREE_POPS						= 10 # First X pops do not add any tech cost
 		TECH_COST_MULT_NUM_POPS					= 0.0 # Each non-free Pop adds +X% tech cost
 		TECH_WEIGHT_PREVIOUS_OPTION				= 0.5	# If a tech was one of the alternatives last time its weight will be multiplied with TECH_WEIGHT_PREVIOUS_OPTION
 
 		## tradition cost = ( base_cost + ( cost_tradition * num_traditions )^traditions_exponential ) * ( 1 + cost_planet*num_planets + cost_system*num_systems )
-		TRADITION_COST_TRADITION				= 6
-		TRADITION_COST_TRADITION_EXP			= 1.639 	# numbers like 1.656 or 1.639	
+		TRADITION_COST_TRADITION				= 7			# change this value if you want to increase all costs
+		TRADITION_COST_TRADITION_EXP			= 1.639 	# change this value if you want to increase costs at the end
 		TRADITION_COST_MULT_TRADITION_GROUP		= 0.05		# each adopted group adds +X% to total cost	
 		TRADITION_COST_MULT_NUM_COLONIES		= 0.20		# Each Planet adds +X% Tradition cost
 		TRADITION_COST_MULT_NUM_SYSTEMS			= 0.01		# Each System adds +X% Tradition cost	
@@ -1083,7 +1085,7 @@
 	NPop = {
 		MAX_POPS_BASE 						= 10		# Max pops is base multiplied by planet size
 		MIN_CROWDING_TO_MIGRATE				= 1		# Unless planet is this % full, pops won't migrate
-		FORCE_MIGRATION_SPEED_MULT 			= 2
+		FORCE_MIGRATION_SPEED_MULT 			= 1
 		MIGRATION_CROWDING_EFFECT			= 0.25		# How much does crowding affect where pops want to migrate
 		MIGRATE_CROWDING_FORCE_MOVE_EFFECT 	= 0.5	# How large is the crowding effect for pops that being force-moved (multiplier on above value)
 		MIGRATION_SAME_SPECIES_EFFECT		= 1.25		# How much does the species being present on a planet affect chance of migrating there
@@ -1624,8 +1626,9 @@
 		PEACE_STATUS_QUO_FACTOR = -75
 		PEACE_HIGH_WE_STATUS_QUO_FACTOR = 100
 		PEACE_DEMAND_SURRENDER_FACTOR = -100
-		PEACE_DEFENDING_CLAIM_FACTOR = -10
-		PEACE_DEFENDING_IMPORTANT_CLAIM_FACTOR = -100	# For systems with starbases or planets
+		PEACE_DEFENDING_CLAIM_SYSTEM_FACTOR = -10	# For every system
+		PEACE_DEFENDING_CLAIM_STARBASE_FACTOR = -40	# For systems with upgraded starbases
+		PEACE_DEFENDING_CLAIM_PLANET_FACTOR = -100	# For systems with colonies
 		PEACE_RELATIVE_NAVY_STRENGTH_FACTOR = 50	
 
 		TECH_NEED_MULT_VALUE = 10				# Tech need value will multiplied by this value e.g. when certain diplomacy techs are needed
@@ -1644,9 +1647,9 @@
 		THREAT_TRUCE_MONTHS = 12				# AI will not consider the opponent a threat if this many months are left on a truce
 		FLEET_BALANCE_THREAT = 0.5				# If FleetPower of AI / FleetPower of Enemy is lower than this AI will consider the country a threat
 		ENERGY_MONTHS_FACTOR_WAR = 12			# Energy are supposed to last this many months when used to buy new ships in war
-		ENEMY_FLEET_POWER_MULT = 1.2			# AI will need the the fleet power of the enemy multiplied by this value to become offensive in an offensive war
-		ENEMY_ARMY_POWER_MULT = 1.0				# AI will need the the military power of the enemy multiplied by this value to land armies on planet
-		ENEMY_NEUTRALS_FLEET_POWER_MULT = 2	# AI will need the the fleet power of the enemy multiplied by this value to attack neutrals and space hostiles
+		ENEMY_FLEET_POWER_MULT = 1.2			# AI will need the fleet power of the enemy multiplied by this value to become offensive in an offensive war
+		ENEMY_ARMY_POWER_MULT = 1.0				# AI will need the military power of the enemy multiplied by this value to land armies on planet
+		ENEMY_NEUTRALS_FLEET_POWER_MULT = 2	# AI will need the fleet power of the enemy multiplied by this value to attack neutrals and space hostiles
 		ENEMY_FLEET_POWER_HOME_SYSTEM_MULT = 1.0 # AI will need the fleet power of the enemy multiplied by this value to attack hostiles in own systems
 		PRIO_BASE_FRACTION = 0.80				# Prio base fraction for example if prio is assault arsenal fraction will be set to this value
 
@@ -1729,4 +1732,10 @@
 		
 		NO_WARS_FLAG = "ai_no_wars"
 		NO_LEAVE_FED_FLAG = "ai_no_leave_fed"
+
+		EMPIRE_RICH_FACTOR = 0.75				# Empire will consider draining a rich sector unless it is above this % of max
+		SECTOR_RICH_FACTOR = 0.5			# Empire considers a sector rich if this % of max
+
+		EMPIRE_POOR_FACTOR = 0.2				# Empire will consider draining any non poor sector if below this
+		SECTOR_POOR_FACTOR = 0.2					# Empire considers sector poor if below this % of max
 	}
