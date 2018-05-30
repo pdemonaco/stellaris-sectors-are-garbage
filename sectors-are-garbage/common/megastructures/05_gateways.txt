@@ -82,7 +82,9 @@ gateway_0 = {
 	
 	on_build_start = {}
 	on_build_cancel = {}	
-	on_build_complete = {}
+	on_build_complete = {
+                from = { country_event = { id = apoc.14 } }
+        }
 }
 
 gateway_final = {
@@ -90,9 +92,8 @@ gateway_final = {
 	construction_entity = "construction_platform_entity"
 	portrait = "GFX_megastructure_construction_background"
 	place_entity_on_planet_plane = no
-        # indicates this will use "free" placement between the system's inner and outer ring
-	# if this option is active, the placement_rules will be completely ignored
-	build_outside_gravity_well = yes
+	# build_outside_gravity_well = yes 						# indicates this will use "free" placement between the system's inner and outer ring
+															# if this option is active, the placement_rules will be completely ignored
 	show_galactic_map_icon = no
 	potential = {
 		has_technology = tech_gateway_activation
@@ -123,7 +124,10 @@ gateway_final = {
 				finish_upgrade = yes
 			}
 		}
-		from = { country_event = { id = apoc.11 } }
+		from = {
+			country_event = { id = apoc.13 }
+			country_event = { id = apoc.11 }
+		}
 	}
 }
 
@@ -176,15 +180,17 @@ gateway_restored = {
 			limit = { num_active_gateways = 1 }
 			random_megastructure = {
 				limit = { is_megastructure_type = gateway_ruined }
-				solar_system = {
-					starbase = {
-						owner = { set_country_flag = did_not_repair_gateway }
-					}
+                                if = {
+					limit = { exists = solar_system.starbase }
+					solar_system.starbase.owner = { set_country_flag = did_not_repair_gateway }
 				}
 				upgrade_megastructure_to = gateway_restored
 				finish_upgrade = yes
 			}
 		}
-		from = { country_event = { id = apoc.10 } }
+                from = { 
+			country_event = { id = apoc.12 }
+			country_event = { id = apoc.10 }
+		}
 	}
 }
