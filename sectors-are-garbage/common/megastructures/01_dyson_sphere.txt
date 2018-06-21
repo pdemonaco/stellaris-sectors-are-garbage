@@ -87,7 +87,6 @@ dyson_sphere_0 = {
 				is_star_class = sc_trinary_4
 			}
 		}
-		}
 		custom_tooltip = {
 			fail_text = "requires_no_existing_megastructure"
 			#NOT = { has_any_megastructure = yes }
@@ -268,7 +267,7 @@ dyson_sphere_5 = {
 				is_planet_class = pc_barren
 			}
 			change_pc = pc_barren_cold
-		}		
+                }
 	}
 }
 

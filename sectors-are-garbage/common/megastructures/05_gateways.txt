@@ -14,8 +14,6 @@ gateway_0 = {
 		minerals = 10000
 		influence = 100
 	}
-
-        # Adding concurrent build support
 	construction_blocks_others = no
 
 	potential = {
@@ -54,7 +52,7 @@ gateway_0 = {
 	}
         
         # those would be ignored since the gateway is being "free-placed" between the inner and outer radius of the system
-	placement_rules = {	
+	placement_rules = {
 	}
 	
 	# root = system
@@ -139,6 +137,7 @@ gateway_ruined = {
 	build_outside_gravity_well = yes
         bypass_type = gateway
 	show_galactic_map_icon = no
+	construction_blocks_others = no
 
 	potential = {
 		always = no
@@ -188,7 +187,7 @@ gateway_restored = {
 				finish_upgrade = yes
 			}
 		}
-                from = { 
+                from = {
 			country_event = { id = apoc.12 }
 			country_event = { id = apoc.10 }
 		}
