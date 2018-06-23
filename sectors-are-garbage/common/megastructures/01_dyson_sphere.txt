@@ -152,6 +152,9 @@ dyson_sphere_1 = {
 		minerals = 50000
 	}
 
+        # Adding concurrent build support?
+        construction_blocks_others = no
+
 	possible = {
 		from = { has_ascension_perk = ap_galactic_wonders }
 	}
@@ -244,6 +247,10 @@ dyson_sphere_5 = {
 	build_cost = {
 		minerals = 50000
 	}
+
+        # Adding concurrent build support?
+        construction_blocks_others = no
+
 	monthly_production = {
 		energy = @energy_stage_5
 	}
